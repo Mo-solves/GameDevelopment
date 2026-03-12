@@ -10,7 +10,7 @@ int main() {
 	//Application* app = new Application{"My Game", 800, 800};
 	
 	// new way of making pointer
-	std::unique_ptr<Application> app = std::make_unique<Application>("My Game", 1000, 800);
+	std::unique_ptr<Application> app = std::make_unique<Application>();
 	app->Run();
 
 }
