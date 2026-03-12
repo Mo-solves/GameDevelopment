@@ -34,14 +34,14 @@ namespace gdev {
 			while (accumulatedTime > targetDeltaTime)
 			{
 				accumulatedTime -= targetDeltaTime;
-				Tick(targetDeltaTime);
+				TickInternal(targetDeltaTime);
 				RenderInternal();
 			}
 		}
 	}
-	void Application::Tick(float deltaTime)
+	void Application::TickInternal(float deltaTime)
 	{
-		
+		Tick(deltaTime);
 	}
 
 	void Application::RenderInternal()
@@ -61,5 +61,9 @@ namespace gdev {
 		rect.setPosition(mWindow.getSize().x / 2.f, mWindow.getSize().y / 2.f);
 
 		mWindow.draw(rect);
+	}
+
+	void Application::Tick(float deltaTime)
+	{
 	}
 }

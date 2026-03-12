@@ -1,3 +1,4 @@
+#pragma once
 #include <SFML/Graphics.hpp>
 
 namespace gdev {
@@ -8,9 +9,11 @@ namespace gdev {
 		Application(const std::string& title, int height, int weight);
 		
 		void Run();
-		void Tick(float deltaTime);
+		void TickInternal(float deltaTime);
 		void RenderInternal();
+
 		virtual void Render();
+		virtual void Tick(float deltaTime);
 
 	private:
 		sf::RenderWindow mWindow;

@@ -22,6 +22,8 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(${SFML_LIB_NAME})
 
 #this creates a variable
-set(Game_Name_Target GamePlay)
+set(GAME_ENGINE_TARGET_NAME GameEngine)
+set(GAME_TARGET_NAME SpaceshipGame)
 
-add_subdirectory(GameDev)
+add_subdirectory(GameEngine)
+add_subdirectory(SpaceshipGame)
