@@ -35,11 +35,31 @@ namespace gdev {
 			{
 				accumulatedTime -= targetDeltaTime;
 				Tick(targetDeltaTime);
+				RenderInternal();
 			}
 		}
 	}
 	void Application::Tick(float deltaTime)
 	{
-		std::cout << "Ticking at framerate: " << 1.f / deltaTime << std::endl;
+		
+	}
+
+	void Application::RenderInternal()
+	{
+		mWindow.clear();
+		
+		Render();
+
+		mWindow.display();
+	}
+
+	void Application::Render()
+	{
+		sf::RectangleShape rect{ sf::Vector2f{100, 100} };
+		rect.setFillColor(sf::Color::Cyan);
+		rect.setOrigin(50, 50);
+		rect.setPosition(mWindow.getSize().x / 2.f, mWindow.getSize().y / 2.f);
+
+		mWindow.draw(rect);
 	}
 }

@@ -9,6 +9,8 @@ namespace gdev {
 		
 		void Run();
 		void Tick(float deltaTime);
+		void RenderInternal();
+		virtual void Render();
 
 	private:
 		sf::RenderWindow mWindow;
