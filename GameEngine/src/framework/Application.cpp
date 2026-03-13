@@ -1,4 +1,5 @@
 #include <iostream>
+#include "framework/Core.h"
 #include "framework/Application.h"
 
 namespace gdev {
@@ -30,6 +31,7 @@ namespace gdev {
 					mWindow.close();
 				}
 			}
+			float frameDeltaTime = mTickClock.restart().asSeconds();
 			accumulatedTime += mTickClock.restart().asSeconds();
 			while (accumulatedTime > targetDeltaTime)
 			{
@@ -37,6 +39,9 @@ namespace gdev {
 				TickInternal(targetDeltaTime);
 				RenderInternal();
 			}
+			//std::cout << "ticking at frame: " << 1.f / frameDeltaTime << std::endl;
+			LOG("Ticking at frame: %f", 1.f / frameDeltaTime);
+			
 		}
 	}
 	void Application::TickInternal(float deltaTime)
