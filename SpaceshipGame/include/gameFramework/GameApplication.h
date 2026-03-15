@@ -5,6 +5,7 @@ namespace gdev
 {
 	class GameApplication : public Application
 	{
-
+	public:
+		GameApplication();
 	};
 }

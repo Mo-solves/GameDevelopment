@@ -1,19 +1,22 @@
 #include <iostream>
 #include "framework/Core.h"
 #include "framework/Application.h"
+#include "framework/World.h"
 
 namespace gdev {
 	Application::Application()
 		: mWindow{ sf::VideoMode(1000,800), "Space Ship" },
 		mTargetFrame{60.f},
-		mTickClock{}
+		mTickClock{},
+		mCurrentWord{nullptr}
 		
 	{
 	}
 	Application::Application(const std::string& title, int height, int weight)
 		: mWindow{ sf::VideoMode(height,weight), title },
 		mTargetFrame{ 60.f },
-		mTickClock{}
+		mTickClock{},
+		mCurrentWord{nullptr}
 	{
 	}
 
@@ -39,14 +42,17 @@ namespace gdev {
 				TickInternal(targetDeltaTime);
 				RenderInternal();
 			}
-			//std::cout << "ticking at frame: " << 1.f / frameDeltaTime << std::endl;
-			LOG("Ticking at frame: %f", 1.f / frameDeltaTime);
 			
 		}
 	}
 	void Application::TickInternal(float deltaTime)
 	{
 		Tick(deltaTime);
+
+		if (mCurrentWord)
+		{
+			mCurrentWord->TickInternal(deltaTime);
+		}
 	}
 
 	void Application::RenderInternal()
