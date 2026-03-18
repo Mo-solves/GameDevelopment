@@ -1,5 +1,6 @@
 #include "gameFramework/GameApplication.h"
 #include "framework/World.h"
+#include "framework/Actor.h"
 
 gdev::Application* GetApplication()
 {
@@ -9,6 +10,21 @@ gdev::Application* GetApplication()
 namespace gdev {
 	GameApplication::GameApplication()
 	{
-		LoadWorld<World>();
+		 weak<World> newWorld = LoadWorld<World>();
+		 newWorld.lock()->SpawnActor<Actor>();
+		 actorToDestroy =  newWorld.lock()->SpawnActor<Actor>();
+		 counter = 0;
+	}
+
+	void GameApplication::Tick(float deltaTime)
+	{
+		counter += deltaTime;
+		if (counter > 2.f)
+		{
+			if (!actorToDestroy.expired())
+			{
+				actorToDestroy.lock()->Destroy();
+			}
+		}
 	}
 }

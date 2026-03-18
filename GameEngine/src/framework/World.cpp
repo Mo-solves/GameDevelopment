@@ -1,11 +1,14 @@
 #include "framework/World.h"
 #include "framework/Core.h"
+#include "framework/Actor.h"
 
 namespace gdev
 {
 	World::World(Application* owningApp)
 		:mOwningApp{owningApp},
-		mBeganPlay{false}
+		mBeganPlay{false},
+		mActors{},
+		mPendingActors{}
 	{
 	}
 	void World::BeginPlayInternal()
@@ -19,6 +22,27 @@ namespace gdev
 
 	void World::TickInternal(float deltaTime)
 	{
+		for (shared<Actor> actor : mPendingActors)
+		{
+			mActors.push_back(actor);
+			actor->BeginPlayInternal();
+		}
+
+		mPendingActors.clear();
+
+		for (auto iter = mActors.begin(); iter != mActors.end();)
+		{
+			if (iter->get()->IsPendingDestroty())
+			{
+				iter = mActors.erase(iter);
+			}
+			else
+			{
+				iter->get()->Tick(deltaTime);
+				++iter;
+			}
+		}
+		
 		Tick(deltaTime);
 	}
 
